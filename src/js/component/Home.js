@@ -6,6 +6,28 @@ const Home = () => {
 	const [task, setTask] = useState("");
 	const [tasks, setTasks] = useState([]);
 
+
+	useEffect(() => {
+		function createUser() {
+			fetch("https://playground.4geeks.com/todo/users/michaelrick88", {
+				method: "POST",
+				body: JSON.stringify({}),
+				headers: { "Content-Type": "application/json" },
+			})
+				.then((response) => {
+					console.log(response);
+					return response.json()
+				})
+				.then((data) => {
+					console.log(data);
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		}
+		createUser();
+	}, []);
+
 	useEffect(() => {
 		getTodos();
 	}, []);
@@ -18,7 +40,7 @@ const Home = () => {
 			})
 			.then((data) => {
 				setTasks(data.todos)
-				console.log(data);
+				console.log(data.todos);
 			})
 			.catch((error) => { error })
 	}
